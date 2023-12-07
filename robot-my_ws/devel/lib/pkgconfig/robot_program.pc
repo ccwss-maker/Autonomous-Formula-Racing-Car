@@ -1,0 +1,8 @@
+prefix=/home/wust/Personal_Data/ros_ws/robot-my_ws/devel
+
+Name: robot_program
+Description: Description of robot_program
+Version: 0.0.0
+Cflags: -I/home/wust/Personal_Data/ros_ws/robot-my_ws/src/robot/robot_program/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs sensor_msgs nav_msgs darknet_ros_msgs cv_bridge pcl_conversions pcl_ros

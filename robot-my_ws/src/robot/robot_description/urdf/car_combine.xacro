@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<robot name="car_combine" xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    <xacro:property name="base_link" value="car_link"/>
+    <xacro:property name="camera_link" value="car_link"/>
+    <xacro:property name="laser_link" value="car_link"/>
+    <xacro:property name="imu_link" value="car_link"/>
+    <xacro:include filename="materials.xacro" />
+    <xacro:include filename="car.xacro" />
+    <xacro:include filename="laser-32.xacro" />
+    <xacro:include filename="camera.xacro" />
+    <xacro:include filename="$(find robot_description)/urdf/plugin.gazebo" />
+</robot>

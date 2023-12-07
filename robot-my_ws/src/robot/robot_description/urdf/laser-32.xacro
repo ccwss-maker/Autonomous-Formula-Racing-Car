@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot name="laser-32" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <link name="laser_base">
+    <inertial>
+      <mass value="0.83"/>
+      <origin xyz="0 0 0.03585"/>
+      <inertia ixx="${(0.83 * (3.0*0.0516*0.0516 + 0.0717*0.0717)) / 12.0}" ixy="0" ixz="0"
+        iyy="${(0.83 * (3.0*0.0516*0.0516 + 0.0717*0.0717)) / 12.0}" iyz="0"
+        izz="${0.5 * 0.83 * (0.0516*0.0516)}"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://robot_description/meshes/VLP32_base_1.dae" />
+      </geometry>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="package://robot_description/meshes/VLP32_base_2.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.03585"/>
+      <geometry>
+        <cylinder radius="0.0516" length="0.0717"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="laser_center">
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="1e-7" ixy="0" ixz="0" iyy="1e-7" iyz="0" izz="1e-7"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.0377" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/VLP32_scan.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="laser_base_joint" type="fixed" >
+    <origin xyz="0 0 0.0377" rpy="0 0 0" />
+    <parent link="laser_base" />
+    <child link="laser_center"/>
+  </joint>
+  
+</robot>

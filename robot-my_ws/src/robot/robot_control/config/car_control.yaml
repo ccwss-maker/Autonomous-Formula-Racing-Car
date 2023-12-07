@@ -1,0 +1,55 @@
+car:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+  
+  # #Effort Controllers ---------------------------------------
+  # left_rear_joint_effort_controller:
+  #   type: effort_controllers/JointEffortController
+  #   joint: left_rear_joint
+
+  # right_rear_joint_effort_controller:
+  #   type: effort_controllers/JointEffortController
+  #   joint: right_rear_joint
+
+  # left_front_joint_effort_controller:
+  #   type: effort_controllers/JointEffortController
+  #   joint: left_front_joint
+
+  # right_front_joint_effort_controller:
+  #   type: effort_controllers/JointEffortController
+  #   joint: right_front_joint
+
+  # #Velocity Controllers ---------------------------------------
+  # left_rear_joint_velocity_controller:
+  #   type: effort_controllers/JointVelocityController
+  #   joint: left_rear_joint
+  #   pid: {p: 1500, i: 5.5, d: 4.0}
+
+  # right_rear_joint_velocity_controller:
+  #   type: effort_controllers/JointVelocityController
+  #   joint: right_rear_joint
+  #   pid: {p: 1500, i: 5.5, d: 4.0}
+
+  # left_front_joint_velocity_controller:
+  #   type: effort_controllers/JointVelocityController
+  #   joint: left_front_joint
+  #   pid: {p: 1500, i: 5.5, d: 4.0}
+
+  # right_front_joint_velocity_controller:
+  #   type: effort_controllers/JointVelocityController
+  #   joint: right_front_joint
+  #   pid: {p: 1500, i: 5.5, d: 4.0}
+
+  #Position Controllers ---------------------------------------
+  left_string_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: left_string_joint
+    pid: {p: 6000, i: 400, d: 80}
+
+  right_string_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: right_string_joint
+    pid: {p: 6000, i: 400, d: 80}
+

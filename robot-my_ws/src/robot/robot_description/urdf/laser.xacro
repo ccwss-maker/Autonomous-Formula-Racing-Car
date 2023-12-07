@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<robot name="laser" xmlns:xacro="http://www.ros.org/wiki/xacro">
+      
+    <link name="laser_base">
+        <inertial>
+            <mass value="1.2"/>
+            <origin rpy="0  0  0" xyz="0  0  0.029335"/>
+            <inertia ixx="0.001087473" ixy="0" ixz="0" iyy="0.001087473" iyz="0" izz="0.001092437"/>
+        </inertial>
+
+        <collision name="laser_base_collision">
+            <origin rpy="0  0  0" xyz="0       0       0.029335"/>
+            <geometry>
+                <cylinder length=".05867" radius=".04267"/>
+            </geometry>
+        </collision>
+
+        <visual name="laser_base_visual">
+            <origin rpy="0  0  0" xyz="0  0  0"/>
+            <geometry>
+                <mesh filename="package://robot_description/meshes/velodyne_base.dae" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </visual>
+    </link> 
+  
+    <link name="laser_top">
+        <inertial>
+            <mass value="0.1"/>
+            <origin rpy="0  0  0" xyz="0  0  0.036785"/>
+            <inertia ixx="0.000090623" ixy="0" ixz="0" iyy="0.000090623" iyz="0" izz="0.000091036"/>
+        </inertial>
+
+        <collision name="laser_top_collision">
+            <origin rpy="0  0  0" xyz="0  0  0.036785"/>
+            <geometry>
+                <cylinder length="0.07357" radius="0.04267"/>
+            </geometry>
+        </collision>
+
+        <visual name="laser_top_visual">
+            <origin rpy="0      0      ${PI/2}" xyz="0       0      0"/>
+            <geometry>
+                <mesh filename="package://robot_description/meshes/velodyne_top.dae" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="laser_top_joint" type="continuous">
+        <parent link="laser_base"/>
+        <child link="laser_top"/>
+        <origin rpy="0  0  0" xyz="0       0       0.05867"/>
+        <axis xyz="0  0  1"/>
+       <limit effort="0.05" velocity="125.6637061436" />
+    </joint>
+
+    <gazebo reference="laser_top">
+        <sensor type="ray" name="sensor">
+            <pose>0 0 0.025 ${PI/2} 0 0</pose>
+            <update_rate>100</update_rate>
+            <visualize>true</visualize>
+            <ray>
+                <scan>
+                <horizontal>
+                <samples>32</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.27925268</min_angle>
+                <max_angle>0.2617993878</max_angle>
+                </horizontal>
+                </scan>
+                <range>
+                <min>0.05</min>
+                <max>200</max>
+                <resolution>0.36</resolution>
+                </range>
+                <noise>
+                <type>gaussian</type>
+                <mean>0.0</mean>
+                <stddev>0.01</stddev>
+                </noise>
+            </ray>
+            <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+                <topicName>/car/laser/scan</topicName>
+                <frameName>${laser_link}</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <transmission name="tran1"  type="SimpleTransmission" >
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="laser_top_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/laser</robotNamespace>
+            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+        </plugin>
+    </gazebo>
+
+</robot>

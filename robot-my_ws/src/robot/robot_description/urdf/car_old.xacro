@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<robot name="car" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="wheel_joint" params="name x y">
+        <joint name="${name}_joint" type="continuous">
+            <parent link="car_base"/>
+            <child link="${name}"/>
+            <origin rpy="${PI/2}  0      0" xyz="${x} ${y} -0.15284"/>
+            <axis xyz="0  0  1"/>
+            <limit effort="100" velocity="60" />
+        </joint>
+    </xacro:macro>
+
+    <xacro:macro name="wheel" params="name">
+        <link name="${name}">
+            <inertial>
+                <mass value="1"/>
+                <origin rpy="0  0  0" xyz="0  0  0"/>
+                <inertia ixx="0.145833" ixy="0" ixz="0" iyy="0.145833" iyz="0" izz="0.125"/>
+            </inertial>
+            <collision name="collision">
+                <origin rpy="0  0  0" xyz="0  0  0"/>
+                <geometry>
+                    <cylinder length="0.23" radius="0.2286"/>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <origin rpy="0  0  0" xyz="0  0  0"/>
+                <geometry>
+                    <cylinder length="0.23" radius="0.2286"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+        </link>
+    </xacro:macro>
+
+    <link name="car_base">
+        <inertial>
+            <mass value="1"/>
+            <origin rpy="0  0  0" xyz="0  0  -0.3"/>
+            <inertia ixx="0.166667" ixy="0" ixz="0" iyy="0.166667" iyz="0" izz="0.166667"/>
+        </inertial>
+        <collision name="collision">
+            <origin rpy="0  0  0" xyz="-0.50004 -0.008    0.41855"/>
+            <geometry>
+                <box size="2.4 1.4 0.4"/>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <origin rpy="0  0  0" xyz="-0.50004 -0.008    0.41855"/>
+            <geometry>
+                <box size="2.4 1.4 0.4"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+    </link>
+
+    <xacro:wheel name="left_front"/>
+    <xacro:wheel name="right_front"/>
+    <xacro:wheel name="left_rear"/>
+    <xacro:wheel name="right_rear"/>
+
+    <xacro:wheel_joint name="left_front" x="-0.90004" y="-0.823"/>
+    <xacro:wheel_joint name="right_front" x="-0.90004" y="0.823"/>
+    <xacro:wheel_joint name="left_rear" x="0.67135" y="-0.823"/>
+    <xacro:wheel_joint name="right_rear" x="0.67135" y="0.823"/>
+
+    <joint name="laser_joint" type="fixed">
+        <parent link="car_base"/>
+        <child link="laser_base"/>
+        <origin rpy="0 0 ${PI}" xyz="-1.8  0 -0.32"/>
+    </joint>
+
+    <joint name="camera_joint" type="fixed">
+        <parent link="car_base"/>
+        <child link="camera_base"/>
+        <origin rpy="0  0 ${PI}" xyz="-0.6 0 0.9"/>
+    </joint>
+
+</robot>

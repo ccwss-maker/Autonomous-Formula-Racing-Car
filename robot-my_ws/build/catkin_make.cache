@@ -1,0 +1,2 @@
+box_ros_msgs:kbd_ros_msgs:robot/robot_control:robot/robot_description:robot/robot_gazebo:robot/robot_program:robot/velodyne_gazebo_plugins
+-DCATKIN_DEVEL_PREFIX=/home/wust/Personal_Data/ros_ws/robot-my_ws/devel -DCMAKE_INSTALL_PREFIX=/home/wust/Personal_Data/ros_ws/robot-my_ws/install -G Unix Makefiles

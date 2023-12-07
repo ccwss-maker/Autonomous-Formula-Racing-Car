@@ -1,0 +1,10 @@
+point: 
+  distance: 13
+
+puresuit: 
+  kv: 1
+  d0: 1
+
+car_v: 2
+
+control: 0
